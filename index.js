@@ -26,6 +26,12 @@ app.get("/api/hello", function (req, res) {
 
 
 
+app.get("/api/:date?", function(req, res) {
+  res.json({unix: Math.floor(new Date().getTime()/1000)});
+});
+
+
+
 // listen for requests :)
 var listener = app.listen(process.env.PORT, function () {
   console.log('Your app is listening on port ' + listener.address().port);
