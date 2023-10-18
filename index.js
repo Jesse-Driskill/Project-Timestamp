@@ -27,12 +27,25 @@ app.get("/api/hello", function (req, res) {
 
 
 app.get("/api/:date?", function(req, res) {
-  res.json({unix: Math.floor(new Date().getTime()/1000)});
+  // let date = new Date(req.params.date);
+  let date;
+  let dateParam = req.params.date;
+  let dateSet = new Set(dateParam.split(""));
+  if (!dateSet.has("-")) {
+    date = new Date(parseInt(dateParam));
+  } else {
+    date = new Date(dateParam);
+  }
+  
+  res.json({
+    unix: date.getTime(),
+    utc: date.toUTCString()
+  });
 });
 
 
 
 // listen for requests :)
-var listener = app.listen(process.env.PORT, function () {
-  console.log('Your app is listening on port ' + listener.address().port);
+var listener = app.listen(3000, function () {
+  console.log('Your app is listening on port ' + 3000);
 });
